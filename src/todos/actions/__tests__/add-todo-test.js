@@ -10,17 +10,27 @@ jest.mock('../../../todos/services/fake-backend/new-todo');
 
 describe('addTodo', () => {
 	it('creates new todo and dispatches UPDATE_TODOS', () => {
-		const store = mockStore({ todos: {} });
-
 		const description = 'test description';
-		const expectedActions = [{
-			type: 'UPDATE_TODOS',
+
+		const store = mockStore({
 			todos: {
-				100: {
+				'99': {
 					description,
 					dateCreated: 'an iso date',
 					isComplete: false,
 					position: 0
+				}
+			}
+		});
+
+		const expectedActions = [{
+			type: 'UPDATE_TODOS',
+			todos: {
+				'100': {
+					description,
+					dateCreated: 'an iso date',
+					isComplete: false,
+					position: 1
 				}
 			}
 		}];

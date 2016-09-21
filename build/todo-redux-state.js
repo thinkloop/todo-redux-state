@@ -942,7 +942,7 @@ exports.default = function (description) {
 
 		var todos = _getState.todos;
 
-		var position = todos && todos.length || 0;
+		var position = Object.keys(todos || {}).length;
 
 		return (0, _newTodo2.default)(description, position).then(function (todo) {
 			var id = todo.id;

@@ -18,15 +18,18 @@
     "todomvc",
     "redux"
   ],
-  "main": "./build/store.js",
+  "main": "./build/todo-redux-state.js",
   "scripts": {
     "************": "",
     "test": "clear; echo '**** TESTS ****'; jest",
-    "build": "clear; echo '* NPM UPDATE *'; echo '* * * *  BUILD  * * * *'; npm run -s clean; NODE_ENV=development npm run -s build:js",
+    "watch": "clear; echo '* NPM UPDATE *'; npm update; echo '* CLEAN * WATCHIFY *'; npm run -s clean; NODE_ENV=development npm run -s watch:js",
+    "build": "clear; echo '* NPM UPDATE *'; echo '* * * *  BUILD  * * * *'; npm run -s clean; NODE_ENV=production npm run -s build:js",
     "***********": "",
-    "build:js": "npm run -s build:js:browserify | npm run -s partial:uglify -- --mangle > ./build/store.js && echo ---------JS-------------`date +%r`",
-    "build:js:browserify": "browserify $npm_package_config_entry_file --extension=.js --extension=.jsx --detectGlobals false --standalone todo-redux-state -t [ babelify --presets [ es2015 stage-0 ] ]",
+    "watch:js": "watchify $npm_package_config_entry_file --extension=.js --extension=.jsx -t [ babelify ] --detectGlobals false --standalone todo-redux-state --debug -o 'cat > $npm_package_config_build_folder/todo-redux-state.js && echo ---------WATCHIFY--------`date +%r`'",
     "**********": "",
+    "build:js": "npm run -s build:js:browserify | npm run -s partial:uglify -- --mangle > $npm_package_config_build_folder/todo-redux-state.js && echo ---------JS-------------`date +%r`",
+    "build:js:browserify": "browserify $npm_package_config_entry_file --extension=.js --extension=.jsx --detectGlobals false --standalone todo-redux-state -t [ babelify ]",
+    "*********": "",
     "clean": "rimraf $npm_package_config_build_folder/* && mkdir -p $npm_package_config_build_folder && echo ---------CLEAN----------`date +%r`",
     "partial:uglify": "[ $NODE_ENV != production ] && cat || uglifyjs --compress drop_console,unused=true --screw-ie8"
   },
@@ -40,6 +43,7 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
+    "exorcist": "^0.4.0",
     "jest": "^15.1.1",
     "npm-check-updates": "^2.8.0",
     "onchange": "^3.0.2",
@@ -54,7 +58,7 @@
     ]
   },
   "config": {
-    "entry_file": "./src/store.js",
+    "entry_file": "./src/index.js",
     "build_folder": "./build"
   }
 }

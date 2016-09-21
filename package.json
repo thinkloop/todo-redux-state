@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "name": "todo-redux-state",
+  "description": "Redux state container for advanced Todo App",
+  "author": "Baz <baz@thinkloop.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinkloop/todo-redux-state.git"
+  },
+  "homepage": "https://github.com/thinkloop/todo-redux-state#readme",
+  "bugs": {
+    "url": "https://github.com/thinkloop/todo-redux-state/issues"
+  },
+  "keywords": [
+    "todo",
+    "mvc",
+    "todomvc",
+    "redux"
+  ],
+  "main": "./src/store.js",
+  "scripts": {
+    "************": "",
+    "test": "clear; echo '**** TESTS ****'; jest",
+    "build": "clear; echo '* NPM UPDATE *'; echo '* * * *  BUILD  * * * *'; npm run -s clean; NODE_ENV=development npm run -s build:js",
+    "***********": "",
+    "build:js": "npm run -s build:js:browserify | npm run -s partial:uglify -- --mangle > ./build/store.js && echo ---------JS-------------`date +%r`",
+    "build:js:browserify": "browserify $npm_package_config_entry_file --extension=.js --extension=.jsx -t [ babelify --presets [ es2015 stage-0 ] ]",
+    "**********": "",
+    "clean": "rimraf $npm_package_config_build_folder/* && mkdir -p $npm_package_config_build_folder && echo ---------CLEAN----------`date +%r`",
+    "partial:uglify": "[ $NODE_ENV != production ] && cat || uglifyjs --compress drop_console,unused=true --screw-ie8"
+  },
+  "devDependencies": {
+    "babel-jest": "^15.0.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "13.1.0",
+    "jest": "^15.1.1",
+    "npm-check-updates": "^2.8.0",
+    "onchange": "^3.0.2",
+    "redux": "^3.6.0",
+    "redux-mock-store": "^1.2.0",
+    "redux-thunk": "^2.1.0",
+    "rimraf": "^2.5.4",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0"
+  },
+  "jest": {
+    "testPathDirs": [
+      "./src"
+    ]
+  },
+  "config": {
+    "entry_file": "./src/store.js",
+    "build_folder": "./build"
+  }
+}

@@ -27,22 +27,18 @@
     "***********": "",
     "watch:js": "watchify $npm_package_config_entry_file --extension=.js --extension=.jsx -t [ babelify ] --detectGlobals false --standalone todo-redux-state --debug -o 'cat > $npm_package_config_build_folder/todo-redux-state.js && echo ---------WATCHIFY--------`date +%r`'",
     "**********": "",
-    "build:js": "npm run -s build:js:browserify | npm run -s partial:uglify -- --mangle > $npm_package_config_build_folder/todo-redux-state.js && echo ---------JS-------------`date +%r`",
-    "build:js:browserify": "browserify $npm_package_config_entry_file --extension=.js --extension=.jsx --detectGlobals false --standalone todo-redux-state -t [ babelify ]",
+    "build:js": "npm run -s build:js:browserify | npm run -s partial:uglify > $npm_package_config_build_folder/todo-redux-state.js && echo ---------JS-------------`date +%r`",
+    "build:js:browserify": "browserify $npm_package_config_entry_file --extension=.js --extension=.jsx --detectGlobals false --standalone todo-redux-state -t [ babelify ] | derequire",
     "*********": "",
     "clean": "rimraf $npm_package_config_build_folder/* && mkdir -p $npm_package_config_build_folder && echo ---------CLEAN----------`date +%r`",
-    "partial:uglify": "[ $NODE_ENV != production ] && cat || uglifyjs --compress drop_console,unused=true --screw-ie8"
+    "partial:uglify": "[ $NODE_ENV = production ] && uglifyjs --compress drop_console,unused=true --mangle --screw-ie8 || cat"
   },
   "dependencies": {
-    "babel-jest": "^15.0.0",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-stage-0": "6.5.0",
-    "babelify": "^7.3.0",
-    "browserify": "13.1.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
+    "derequire": "^2.0.3",
     "exorcist": "^0.4.0",
     "jest": "^15.1.1",
     "npm-check-updates": "^2.8.0",
@@ -50,7 +46,12 @@
     "redux-mock-store": "^1.2.0",
     "rimraf": "^2.5.4",
     "uglifyjs": "^2.4.10",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "babel-jest": "^15.0.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "13.1.0"
   },
   "jest": {
     "testPathDirs": [

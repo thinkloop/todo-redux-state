@@ -21,6 +21,9 @@ export default {
 		return p1;
 	}, {}),
 
-	subscribe: store.subscribe,
-	getState: store.getState
+	get state () {
+		return store.getState();
+	},
+
+	subscribe: store.subscribe
 };

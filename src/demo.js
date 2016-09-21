@@ -4,8 +4,10 @@
 
 var todoReduxState = require('../build/todo-redux-state').default;
 
+console.log(todoReduxState);
+
 todoReduxState.subscribe(function() {
-	console.log('@@@', JSON.stringify(todoReduxState.getState().todos, null, 2)) ;
+	console.log('@@@', JSON.stringify(todoReduxState.state.todos, null, 2));
 });
 
 todoReduxState.todos.loadTodos();

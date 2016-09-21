@@ -19,12 +19,12 @@ describe('removeTodo', () => {
 		});
 
 		const id = '123';
+
 		const expectedActions = [{
 			type: 'UPDATE_TODOS',
 			todos: {
-				[id]: true
-			},
-			isRemove: true
+				[id]: null
+			}
 		}];
 
 		return store.dispatch(removeTodo(id)).then(() => {

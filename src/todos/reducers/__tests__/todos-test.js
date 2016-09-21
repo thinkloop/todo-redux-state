@@ -59,9 +59,8 @@ describe('todos reducer', () => {
 		const action = {
 			type: UPDATE_TODOS,
 			todos: {
-				'222': true
-			},
-			isRemove: true
+				'222': null
+			}
 		};
 
 		const expected = {};
@@ -81,11 +80,10 @@ describe('todos reducer', () => {
 		const action = {
 			type: UPDATE_TODOS,
 			todos: {
-				'222': true,
-				'222': true,
-				'444': true
-			},
-			isRemove: true
+				'222': null,
+				'222': null,
+				'444': null
+			}
 		};
 
 		const expected = {

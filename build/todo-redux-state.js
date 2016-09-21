@@ -1001,8 +1001,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (id) {
 	return function (dispatch, getState) {
 		return (0, _deleteTodo2.default)(id).then(function (todo) {
-			var isRemove = true;
-			dispatch((0, _updateTodos3.default)(_defineProperty({}, id, todo || true), isRemove));
+			dispatch((0, _updateTodos3.default)(_defineProperty({}, id, null)));
 		});
 	};
 };
@@ -1026,8 +1025,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (todos, isRemove) {
-	return { type: UPDATE_TODOS, todos: todos, isRemove: isRemove };
+exports.default = function (todos) {
+	return { type: UPDATE_TODOS, todos: todos };
 };
 
 var UPDATE_TODOS = exports.UPDATE_TODOS = 'UPDATE_TODOS';
@@ -1045,18 +1044,21 @@ exports.default = function () {
 	var todos = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	var action = arguments[1];
 
+	var newTodos = void 0;
+
 	switch (action.type) {
 		case _updateTodos.UPDATE_TODOS:
-			if (action.isRemove) {
-				return Object.keys(todos).filter(function (key) {
-					return !action.todos[key];
-				}).reduce(function (p, key) {
-					p[key] = todos[key];
-					return p;
-				}, {});
-			}
+			newTodos = _extends({}, todos);
 
-			return _extends({}, todos, action.todos);
+			Object.keys(action.todos).forEach(function (key) {
+				if (action.todos[key]) {
+					newTodos[key] = action.todos[key];
+				} else {
+					delete newTodos[key];
+				}
+			});
+
+			return newTodos;
 
 		default:
 			return todos;

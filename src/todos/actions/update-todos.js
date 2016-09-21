@@ -1,5 +1,5 @@
 export const UPDATE_TODOS = 'UPDATE_TODOS';
 
-export default function (todos, isRemove) {
-	return { type: UPDATE_TODOS, todos, isRemove };
+export default function (todos) {
+	return { type: UPDATE_TODOS, todos };
 }

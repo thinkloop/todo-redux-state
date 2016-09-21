@@ -4,8 +4,7 @@ import updateTodos from '../../todos/actions/update-todos';
 export default function (id) {
 	return (dispatch, getState) => {
 		return deleteTodo(id).then(todo => {
-			const isRemove = true;
-			dispatch(updateTodos({ [id]: todo || true }, isRemove));
+			dispatch(updateTodos({ [id]: null }));
 		});
 	};
 }

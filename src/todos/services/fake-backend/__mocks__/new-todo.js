@@ -1,11 +1,10 @@
-export default function (description, position) {
+export default function (description) {
 	const id = '100';
 	const newTodo = {
 		id,
 		description,
 		dateCreated: 'an iso date',
-		isComplete: false,
-		position
+		isComplete: false
 	};
 
 	return new Promise((r, x) => {

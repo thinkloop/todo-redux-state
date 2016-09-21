@@ -17,8 +17,7 @@ describe('addTodo', () => {
 				'99': {
 					description,
 					dateCreated: 'an iso date',
-					isComplete: false,
-					position: 0
+					isComplete: false
 				}
 			}
 		});
@@ -29,8 +28,7 @@ describe('addTodo', () => {
 				'100': {
 					description,
 					dateCreated: 'an iso date',
-					isComplete: false,
-					position: 1
+					isComplete: false
 				}
 			}
 		}];

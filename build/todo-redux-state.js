@@ -942,9 +942,8 @@ exports.default = function (description) {
 
 		var todos = _getState.todos;
 
-		var position = Object.keys(todos || {}).length;
 
-		return (0, _newTodo2.default)(description, position).then(function (todo) {
+		return (0, _newTodo2.default)(description).then(function (todo) {
 			var id = todo.id;
 			delete todo.id;
 			dispatch((0, _updateTodos3.default)(_defineProperty({}, id, todo)));
@@ -1093,14 +1092,12 @@ exports.default = function () {
 		'10': {
 			description: 'test to do id 10',
 			dateCreated: '2016-09-19T18:44:15.635',
-			isComplete: false,
-			position: 1
+			isComplete: false
 		},
 		'3': {
 			description: 'test to do id 3',
 			dateCreated: '2016-09-20T18:44:18.635',
-			isComplete: false,
-			position: 2
+			isComplete: false
 		}
 	};
 
@@ -1118,14 +1115,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (description, position) {
+exports.default = function (description) {
 	var id = Math.round(Math.random() * 10000).toFixed();
 	var newTodo = {
 		id: id,
 		description: description,
 		dateCreated: new Date().toISOString(),
-		isComplete: false,
-		position: position
+		isComplete: false
 	};
 
 	return new Promise(function (r, x) {

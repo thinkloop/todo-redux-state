@@ -4,6 +4,8 @@ import addTodo from './todos/actions/add-todo';
 import loadTodos from './todos/actions/load-todos';
 import removeTodo from './todos/actions/remove-todo';
 
+
+
 const actions = {
 	todos: {
 		addTodo,
@@ -12,7 +14,7 @@ const actions = {
 	}
 };
 
-export default {
+const final = {
 	...Object.keys(actions).reduce((p1, key1) => {
 		p1[key1] = Object.keys(actions.todos).reduce((p2, key2) => {
 			p2[key2] = function() { store.dispatch(actions.todos[key2].apply(null, arguments)) };
@@ -21,9 +23,9 @@ export default {
 		return p1;
 	}, {}),
 
-	get state () {
-		return store.getState();
-	},
-
 	subscribe: store.subscribe
 };
+
+Object.defineProperty(final, "state", { get: () => store.getState() });
+
+export default final;

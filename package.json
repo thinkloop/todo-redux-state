@@ -18,7 +18,7 @@
     "todomvc",
     "redux"
   ],
-  "main": "./src/store.js",
+  "main": "./build/store.js",
   "scripts": {
     "************": "",
     "test": "clear; echo '**** TESTS ****'; jest",

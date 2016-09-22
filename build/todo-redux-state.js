@@ -833,8 +833,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _store = _dereq_('../src/store');
 
 var _store2 = _interopRequireDefault(_store);
@@ -893,20 +891,21 @@ var constants = {
 	TODOS_STATUSES: TODOS_STATUSES
 };
 
-var final = _extends({}, Object.keys(actions).reduce(function (p1, key1) {
-	p1[key1] = Object.keys(actions[key1]).reduce(function (p2, key2) {
-		p2[key2] = function () {
-			_store2.default.dispatch(actions[key1][key2].apply(null, arguments));
-		};
-		return p2;
-	}, {});
-	return p1;
-}, {}), {
+var final = {
+	actions: Object.keys(actions).reduce(function (p1, key1) {
+		p1[key1] = Object.keys(actions[key1]).reduce(function (p2, key2) {
+			p2[key2] = function () {
+				_store2.default.dispatch(actions[key1][key2].apply(null, arguments));
+			};
+			return p2;
+		}, {});
+		return p1;
+	}, {}),
 
 	constants: constants,
 
 	subscribe: _store2.default.subscribe
-});
+};
 
 Object.defineProperty(final, "state", { get: function get() {
 		return _store2.default.getState();

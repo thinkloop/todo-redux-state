@@ -32,7 +32,7 @@ const constants = {
 
 
 const final = {
-	...Object.keys(actions).reduce((p1, key1) => {
+	actions: Object.keys(actions).reduce((p1, key1) => {
 		p1[key1] = Object.keys(actions[key1]).reduce((p2, key2) => {
 			p2[key2] = function() { store.dispatch(actions[key1][key2].apply(null, arguments)) };
 			return p2;

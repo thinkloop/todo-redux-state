@@ -926,6 +926,7 @@ exports.default = function (newSelectedPage) {
 
 		var selectedPage = _getState.selectedPage;
 
+		console.log(selectedPage, ' !== ', newSelectedPage);
 		if (selectedPage !== newSelectedPage) {
 			return { type: UPDATE_SELECTED_PAGE, selectedPage: newSelectedPage };
 		}

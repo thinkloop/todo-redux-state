@@ -13,8 +13,13 @@ todoReduxState.subscribe(function() {
 todoReduxState.site.updateSelectedPage(todoReduxState.constants.PAGES.ABOUT);
 
 todoReduxState.todos.loadTodos();
-todoReduxState.todos.addTodo('demo test');
-todoReduxState.todos.removeTodo('3');
+todoReduxState.todos.addTodo('demo test 1');
+todoReduxState.todos.addTodo('demo test 2');
+
+setTimeout(() => {
+	todoReduxState.todos.removeTodo('3');
+	todoReduxState.todos.completeTodo('10', true);
+}, 500);
 
 
 

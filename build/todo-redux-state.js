@@ -859,6 +859,10 @@ var _removeTodo = _dereq_('./todos/actions/remove-todo');
 
 var _removeTodo2 = _interopRequireDefault(_removeTodo);
 
+var _completeTodo = _dereq_('./todos/actions/complete-todo');
+
+var _completeTodo2 = _interopRequireDefault(_completeTodo);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -874,7 +878,8 @@ var actions = {
 	todos: {
 		addTodo: _addTodo2.default,
 		loadTodos: _loadTodos2.default,
-		removeTodo: _removeTodo2.default
+		removeTodo: _removeTodo2.default,
+		completeTodo: _completeTodo2.default
 	}
 };
 
@@ -899,7 +904,7 @@ Object.defineProperty(final, "state", { get: function get() {
 
 exports.default = final;
 
-},{"../src/store":20,"./site/actions/update-selected-page":17,"./site/constants/pages":18,"./todos/actions/add-todo":21,"./todos/actions/load-todos":22,"./todos/actions/remove-todo":23}],17:[function(_dereq_,module,exports){
+},{"../src/store":20,"./site/actions/update-selected-page":17,"./site/constants/pages":18,"./todos/actions/add-todo":21,"./todos/actions/complete-todo":22,"./todos/actions/load-todos":23,"./todos/actions/remove-todo":24}],17:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -997,7 +1002,7 @@ if (process.env.NODE_ENV !== 'production') {
 // create store
 exports.default = (0, _redux.createStore)((0, _redux.combineReducers)(reducers), middleWare);
 
-},{"./site/reducers/selected-page":19,"./todos/reducers/todos":25,"redux":7,"redux-thunk":1}],21:[function(_dereq_,module,exports){
+},{"./site/reducers/selected-page":19,"./todos/reducers/todos":26,"redux":7,"redux-thunk":1}],21:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1006,11 +1011,6 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (description) {
 	return function (dispatch, getState) {
-		var _getState = getState();
-
-		var todos = _getState.todos;
-
-
 		return (0, _newTodo2.default)(description).then(function (todo) {
 			var id = todo.id;
 			delete todo.id;
@@ -1031,7 +1031,46 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":24,"../../todos/services/fake-backend/new-todo":28}],22:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":25,"../../todos/services/fake-backend/new-todo":29}],22:[function(_dereq_,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (id, isComplete) {
+	return function (dispatch, getState) {
+		var _getState = getState();
+
+		var todos = _getState.todos;
+
+		var todo = todos[id];
+
+		if (!todo) {
+			return;
+		}
+
+		todo.isComplete = isComplete;
+
+		return (0, _saveTodo2.default)(id, todo).then(function (res) {
+			dispatch((0, _updateTodos3.default)(_defineProperty({}, res.id, res.todo)));
+		});
+	};
+};
+
+var _saveTodo = _dereq_('../../todos/services/fake-backend/save-todo');
+
+var _saveTodo2 = _interopRequireDefault(_saveTodo);
+
+var _updateTodos2 = _dereq_('../../todos/actions/update-todos');
+
+var _updateTodos3 = _interopRequireDefault(_updateTodos2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+},{"../../todos/actions/update-todos":25,"../../todos/services/fake-backend/save-todo":30}],23:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1059,7 +1098,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var LOAD_TODOS = exports.LOAD_TODOS = 'LOAD_TODOS';
 
-},{"../../todos/actions/update-todos":24,"../../todos/services/fake-backend/load-all-todos":27}],23:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":25,"../../todos/services/fake-backend/load-all-todos":28}],24:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1086,7 +1125,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":24,"../../todos/services/fake-backend/delete-todo":26}],24:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":25,"../../todos/services/fake-backend/delete-todo":27}],25:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1099,7 +1138,7 @@ exports.default = function (todos) {
 
 var UPDATE_TODOS = exports.UPDATE_TODOS = 'UPDATE_TODOS';
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1135,7 +1174,7 @@ exports.default = function () {
 
 var _updateTodos = _dereq_('../../todos/actions/update-todos');
 
-},{"../../todos/actions/update-todos":24}],26:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":25}],27:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1150,7 +1189,7 @@ exports.default = function (id) {
 	});
 };
 
-},{}],27:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1178,7 +1217,7 @@ exports.default = function () {
 	});
 };
 
-},{}],28:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1197,6 +1236,21 @@ exports.default = function (description) {
 	return new Promise(function (r, x) {
 		setTimeout(function () {
 			return r(newTodo);
+		}, 50);
+	});
+};
+
+},{}],30:[function(_dereq_,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (id, todo) {
+	return new Promise(function (r, x) {
+		setTimeout(function () {
+			return r({ id: id, todo: todo });
 		}, 50);
 	});
 };

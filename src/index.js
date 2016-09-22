@@ -7,6 +7,7 @@ import updateSelectedPage from './site/actions/update-selected-page';
 import addTodo from './todos/actions/add-todo';
 import loadTodos from './todos/actions/load-todos';
 import removeTodo from './todos/actions/remove-todo';
+import completeTodo from './todos/actions/complete-todo';
 
 const constants = {
 	PAGES
@@ -19,7 +20,8 @@ const actions = {
 	todos: {
 		addTodo,
 		loadTodos,
-		removeTodo
+		removeTodo,
+		completeTodo
 	}
 };
 

@@ -10,7 +10,11 @@ todoReduxState.subscribe(function() {
 	console.log('@@@', JSON.stringify(todoReduxState.state, null, 2));
 });
 
+todoReduxState.site.updateSelectedPage(todoReduxState.constants.PAGES.ABOUT);
+
 todoReduxState.todos.loadTodos();
 todoReduxState.todos.addTodo('demo test');
 todoReduxState.todos.removeTodo('3');
+
+
 

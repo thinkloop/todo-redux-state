@@ -3,8 +3,10 @@ import thunk from 'redux-thunk';
 
 // reducers
 import todos from './todos/reducers/todos';
+import selectedPage from './site/reducers/selected-page';
 const reducers = {
-	todos
+	todos,
+	selectedPage
 };
 
 // middleware that logs all actions to console

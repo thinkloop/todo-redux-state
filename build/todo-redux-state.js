@@ -839,6 +839,14 @@ var _store = _dereq_('../src/store');
 
 var _store2 = _interopRequireDefault(_store);
 
+var _pages = _dereq_('./site/constants/pages');
+
+var PAGES = _interopRequireWildcard(_pages);
+
+var _updateSelectedPage = _dereq_('./site/actions/update-selected-page');
+
+var _updateSelectedPage2 = _interopRequireDefault(_updateSelectedPage);
+
 var _addTodo = _dereq_('./todos/actions/add-todo');
 
 var _addTodo2 = _interopRequireDefault(_addTodo);
@@ -851,9 +859,18 @@ var _removeTodo = _dereq_('./todos/actions/remove-todo');
 
 var _removeTodo2 = _interopRequireDefault(_removeTodo);
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var constants = {
+	PAGES: PAGES
+};
+
 var actions = {
+	site: {
+		updateSelectedPage: _updateSelectedPage2.default
+	},
 	todos: {
 		addTodo: _addTodo2.default,
 		loadTodos: _loadTodos2.default,
@@ -862,14 +879,16 @@ var actions = {
 };
 
 var final = _extends({}, Object.keys(actions).reduce(function (p1, key1) {
-	p1[key1] = Object.keys(actions.todos).reduce(function (p2, key2) {
+	p1[key1] = Object.keys(actions[key1]).reduce(function (p2, key2) {
 		p2[key2] = function () {
-			_store2.default.dispatch(actions.todos[key2].apply(null, arguments));
+			_store2.default.dispatch(actions[key1][key2].apply(null, arguments));
 		};
 		return p2;
 	}, {});
 	return p1;
 }, {}), {
+
+	constants: constants,
 
 	subscribe: _store2.default.subscribe
 });
@@ -880,7 +899,53 @@ Object.defineProperty(final, "state", { get: function get() {
 
 exports.default = final;
 
-},{"../src/store":17,"./todos/actions/add-todo":18,"./todos/actions/load-todos":19,"./todos/actions/remove-todo":20}],17:[function(_dereq_,module,exports){
+},{"../src/store":20,"./site/actions/update-selected-page":17,"./site/constants/pages":18,"./todos/actions/add-todo":21,"./todos/actions/load-todos":22,"./todos/actions/remove-todo":23}],17:[function(_dereq_,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (selectedPage) {
+	return { type: UPDATE_SELECTED_PAGE, selectedPage: selectedPage };
+};
+
+var UPDATE_SELECTED_PAGE = exports.UPDATE_SELECTED_PAGE = 'UPDATE_SELECTED_PAGE';
+
+},{}],18:[function(_dereq_,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var HOME = exports.HOME = 'HOME';
+var ABOUT = exports.ABOUT = 'ABOUT';
+
+},{}],19:[function(_dereq_,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function () {
+	var selectedPage = arguments.length <= 0 || arguments[0] === undefined ? _pages.HOME : arguments[0];
+	var action = arguments[1];
+
+	switch (action.type) {
+		case _updateSelectedPage.UPDATE_SELECTED_PAGE:
+			return action.selectedPage;
+
+		default:
+			return selectedPage;
+	}
+};
+
+var _updateSelectedPage = _dereq_('../../site/actions/update-selected-page');
+
+var _pages = _dereq_('../../site/constants/pages');
+
+},{"../../site/actions/update-selected-page":17,"../../site/constants/pages":18}],20:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -897,16 +962,19 @@ var _todos = _dereq_('./todos/reducers/todos');
 
 var _todos2 = _interopRequireDefault(_todos);
 
+var _selectedPage = _dereq_('./site/reducers/selected-page');
+
+var _selectedPage2 = _interopRequireDefault(_selectedPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// reducers
 var reducers = {
-	todos: _todos2.default
+	todos: _todos2.default,
+	selectedPage: _selectedPage2.default
 };
 
 // middleware that logs all actions to console
-
-
-// reducers
 var consoleLog = function consoleLog(store) {
 	return function (next) {
 		return function (action) {
@@ -929,7 +997,7 @@ if (process.env.NODE_ENV !== 'production') {
 // create store
 exports.default = (0, _redux.createStore)((0, _redux.combineReducers)(reducers), middleWare);
 
-},{"./todos/reducers/todos":22,"redux":7,"redux-thunk":1}],18:[function(_dereq_,module,exports){
+},{"./site/reducers/selected-page":19,"./todos/reducers/todos":25,"redux":7,"redux-thunk":1}],21:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -963,7 +1031,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":21,"../../todos/services/fake-backend/new-todo":25}],19:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":24,"../../todos/services/fake-backend/new-todo":28}],22:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -991,7 +1059,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var LOAD_TODOS = exports.LOAD_TODOS = 'LOAD_TODOS';
 
-},{"../../todos/actions/update-todos":21,"../../todos/services/fake-backend/load-all-todos":24}],20:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":24,"../../todos/services/fake-backend/load-all-todos":27}],23:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1018,7 +1086,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":21,"../../todos/services/fake-backend/delete-todo":23}],21:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":24,"../../todos/services/fake-backend/delete-todo":26}],24:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1031,7 +1099,7 @@ exports.default = function (todos) {
 
 var UPDATE_TODOS = exports.UPDATE_TODOS = 'UPDATE_TODOS';
 
-},{}],22:[function(_dereq_,module,exports){
+},{}],25:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1067,7 +1135,7 @@ exports.default = function () {
 
 var _updateTodos = _dereq_('../../todos/actions/update-todos');
 
-},{"../../todos/actions/update-todos":21}],23:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":24}],26:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1082,7 +1150,7 @@ exports.default = function (id) {
 	});
 };
 
-},{}],24:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1110,7 +1178,7 @@ exports.default = function () {
 	});
 };
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

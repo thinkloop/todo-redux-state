@@ -5,7 +5,7 @@ export const LOAD_TODOS = 'LOAD_TODOS';
 
 export default function (todos) {
 	return (dispatch, getState) => {
-		return loadAllTodos().then(todos => {
+		loadAllTodos().then(todos => {
 			dispatch(updateTodos(todos));
 		});
 	};

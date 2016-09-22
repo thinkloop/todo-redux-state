@@ -1104,7 +1104,7 @@ exports.LOAD_TODOS = undefined;
 
 exports.default = function (todos) {
 	return function (dispatch, getState) {
-		return (0, _loadAllTodos2.default)().then(function (todos) {
+		(0, _loadAllTodos2.default)().then(function (todos) {
 			dispatch((0, _updateTodos2.default)(todos));
 		});
 	};

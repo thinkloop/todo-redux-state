@@ -12,6 +12,8 @@ todoReduxState.subscribe(function() {
 
 todoReduxState.site.updateSelectedPage(todoReduxState.constants.PAGES.ABOUT);
 
+todoReduxState.todos.updateSelectedSummaryStatus(todoReduxState.constants.TODOS_STATUSES.PENDING);
+
 todoReduxState.todos.loadTodos();
 todoReduxState.todos.addTodo('demo test 1');
 todoReduxState.todos.addTodo('demo test 2');

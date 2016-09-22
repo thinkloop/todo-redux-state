@@ -1,6 +1,7 @@
 import store from '../src/store';
 
 import * as PAGES from './site/constants/pages';
+import * as TODOS_STATUSES from './todos/constants/statuses';
 
 import updateSelectedPage from './site/actions/update-selected-page';
 
@@ -8,10 +9,7 @@ import addTodo from './todos/actions/add-todo';
 import loadTodos from './todos/actions/load-todos';
 import removeTodo from './todos/actions/remove-todo';
 import completeTodo from './todos/actions/complete-todo';
-
-const constants = {
-	PAGES
-};
+import updateSelectedSummaryStatus from './todos/actions/update-selected-summary-status';
 
 const actions = {
 	site: {
@@ -21,9 +19,17 @@ const actions = {
 		addTodo,
 		loadTodos,
 		removeTodo,
-		completeTodo
+		completeTodo,
+		updateSelectedSummaryStatus
 	}
 };
+
+const constants = {
+	PAGES,
+	TODOS_STATUSES
+};
+
+
 
 const final = {
 	...Object.keys(actions).reduce((p1, key1) => {

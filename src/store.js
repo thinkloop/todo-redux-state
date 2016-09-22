@@ -2,11 +2,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 // reducers
-import todos from './todos/reducers/todos';
 import selectedPage from './site/reducers/selected-page';
+
+import todos from './todos/reducers/todos';
+import selectedSummaryStatus from './todos/reducers/selected-summary-status';
+
 const reducers = {
+	selectedPage,
 	todos,
-	selectedPage
+	selectedSummaryStatus
 };
 
 // middleware that logs all actions to console

@@ -15,6 +15,6 @@ describe('selectedPage reducer', () => {
 
 		const reduced = selectedPageReducer(state, action);
 
-		expect(selectedPage).toEqual(reduced);
+		expect(reduced).toEqual(selectedPage);
 	});
 })

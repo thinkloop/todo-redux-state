@@ -22,7 +22,7 @@ describe('todos reducer', () => {
 
 		const reduced = todosReducer(state, action);
 
-		expect(expected).toEqual(reduced);
+		expect(reduced).toEqual(expected);
 	});
 
 	it('adds multiple todo', () => {
@@ -44,9 +44,9 @@ describe('todos reducer', () => {
 			'444': { descrption: 'test description 444' }
 		};
 
-		const actual = todosReducer(state, action);
+		const reduced = todosReducer(state, action);
 
-		expect(expected).toEqual(actual);
+		expect(reduced).toEqual(expected);
 	});
 
 	it('removes todo', () => {
@@ -67,7 +67,7 @@ describe('todos reducer', () => {
 
 		const reduced = todosReducer(state, action);
 
-		expect(expected).toEqual(reduced);
+		expect(reduced).toEqual(expected);
 	});
 
 	it('removes multiple todo', () => {
@@ -90,8 +90,8 @@ describe('todos reducer', () => {
 			'333': { descrption: 'test description 333' }
 		};
 
-		const actual = todosReducer(state, action);
+		const reduced = todosReducer(state, action);
 
-		expect(expected).toEqual(actual);
+		expect(reduced).toEqual(expected);
 	});
 })

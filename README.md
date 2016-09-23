@@ -1,6 +1,6 @@
 # Todo App - Data-Layer (Redux State Container)
 
-This project is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains data, state, backend services and actions to transform state. A single object is exported with a snapshot of the current `state`, as well as all possible `actions`:
+This is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains data, state, backend services and actions to transform state. A single object is exported with a snapshot of the current `state`, as well as all possible `actions`:
 
 ```javascript
 /* 

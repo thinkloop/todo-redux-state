@@ -22,7 +22,7 @@ console.log(JSON.stringify(todoReduxState.state, null, 2));
 
 // remove todo and show new state
 todoReduxState.actions.todos.removeTodo('3');
-
+console.log(JSON.stringify(todoReduxState.state, null, 2));
 ```
 
 ### Install

@@ -2,7 +2,7 @@
 
 This project is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains data, state, backend services and actions to transform state.
 
-A single top-level object is exported that exposes the current state, as well as possible actions to transform it:
+A single top-level object is exported that exposes the current state of the app and all possible actions:
 
 ```javascript
 /* 

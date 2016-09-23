@@ -32,5 +32,5 @@ Using npm:
 npm install todo-redux-state --save
 ```
 
-Or download the latest build of [todo-redux-state.js](build/todo-redux-state.js).
+Or include the latest build of [todo-redux-state.js](build/todo-redux-state.js) in your project.
 

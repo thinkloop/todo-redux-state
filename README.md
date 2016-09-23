@@ -44,8 +44,8 @@ Since the app has no ui, the primary consumer of the services are actually tests
 ### Conventions Used
 Following are some of the conventions used to drive architectural and design choices:
 
-- structure state into flat, flexible, shallow shapes
-- store the minimum state possible, do not store anything that can be derived from other state
+- state should be flat, shallow, normalized, and flexible
+- state should be minimal, any value that can be derived or calculated should not be stored in state
 - prefer generic objects over arrays
 - use ids to denote relationships between objects, do not nest objects
 - generalize actions so they can be used for varying purposes

@@ -33,7 +33,7 @@ npm install todo-redux-state --save
 Or include the latest build of [todo-redux-state.js](build/todo-redux-state.js) in your project.
 
 ### Test Suite
-Since the app has no ui, the primary consumer of the services are actually tests. As such, the test suite is comprehensive and always up to date. To run it, clone the project,install the dependencies, and run the tests:
+Since the app has no ui, the primary consumer of the services are actually tests. As such, the test suite is comprehensive and up to date. To run the tests, clone the project and install the dependencies, then run:
 
 ```
 > git clone https://github.com/thinkloop/todo-redux-state

@@ -20,7 +20,7 @@ console.log(JSON.stringify(todoReduxState.state, null, 2));
 todoReduxState.actions.todos.addTodo('demo test 1');
 console.log(JSON.stringify(todoReduxState.state, null, 2));
 
-// remove todo and show state
+// remove todo and show new state
 todoReduxState.actions.todos.removeTodo('3');
 
 ```

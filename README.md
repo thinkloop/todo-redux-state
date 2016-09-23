@@ -40,3 +40,13 @@ Since the app has no ui, the primary consumer of the services are actually tests
 > npm install
 > npm run -s test
 ```
+
+### Design Conventions Used
+Following are some of the conventions used to drive architecture and design choices:
+
+- structure state into flat, flexible, shallow shapes
+- store the minimum state possible, do not store anything that can be derived from other state
+- prefer generic objects over arrays
+- use ids to denote relationships between objects, do not nest objects
+- generalize actions so they can be used for varying purposes
+- name things relative to the domain, not to ui implementations (ex: do not use "button", "form", etc.)

@@ -1,8 +1,6 @@
 # Todo App Data-Layer
 
-This project is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains data, state, backend services and actions to transform state.
-
-A single top-level object is exported that exposes the current state of the app and all possible actions:
+This project is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains data, state, backend services and actions to transform state. A single object is exported with a snapshot of the current `state`, as well as all possible `actions`:
 
 ```javascript
 /* 
@@ -34,3 +32,11 @@ npm install todo-redux-state --save
 
 Or include the latest build of [todo-redux-state.js](build/todo-redux-state.js) in your project.
 
+### Test Suite
+Since the app has no ui, the primary consumer of the services are actually tests. As such, the test suite is comprehensive and always up to date. To run it, clone the project,install the dependencies, and run the tests:
+
+```
+> git clone https://github.com/thinkloop/todo-redux-state
+> npm install
+> npm run -s test
+```

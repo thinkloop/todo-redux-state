@@ -10,19 +10,19 @@ Example of 3rd party integration:
 * imports this project and runs some actions
 */
 
-import todoReduxState from 'todo-redux-state';
+import { state, actions, subscribe } from 'todo-redux-state';
 
-// load todos and show state
-todoReduxState.actions.todos.loadTodos();
-console.log(todoReduxState.state);
+// listen to state changes and log them to console
+subscribe(() => console.log(state));
 
-// add todo and show new state
-todoReduxState.actions.todos.addTodo('demo test 1');
-console.log(todoReduxState.state);
+// load todos
+actions.todos.loadTodos();
 
-// remove todo and show new state
-todoReduxState.actions.todos.removeTodo('3');
-console.log(todoReduxState.state);
+// add todo
+actions.todos.addTodo('demo test 1');
+
+// remove todo
+actions.todos.removeTodo('3');
 ```
 
 ### Install

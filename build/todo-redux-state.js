@@ -832,6 +832,7 @@ function symbolObservablePonyfill(root) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.state = exports.subscribe = exports.constants = exports.actions = undefined;
 
 var _store = _dereq_('../src/store');
 
@@ -873,7 +874,13 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var actions = {
+var final = {
+	actions: actions,
+	constants: constants,
+	subscribe: _store2.default.subscribe
+};
+
+final.actions = {
 	site: {
 		updateSelectedPage: _updateSelectedPage2.default
 	},
@@ -886,32 +893,32 @@ var actions = {
 	}
 };
 
-var constants = {
+final.actions = Object.keys(final.actions).reduce(function (p1, key1) {
+	p1[key1] = Object.keys(final.actions[key1]).reduce(function (p2, key2) {
+		p2[key2] = function () {
+			_store2.default.dispatch(final.actions[key1][key2].apply(null, arguments));
+		};
+		return p2;
+	}, {});
+	return p1;
+}, {});
+
+final.constants = {
 	PAGES: PAGES,
 	TODOS_STATUSES: TODOS_STATUSES
 };
 
-var final = {
-	actions: Object.keys(actions).reduce(function (p1, key1) {
-		p1[key1] = Object.keys(actions[key1]).reduce(function (p2, key2) {
-			p2[key2] = function () {
-				_store2.default.dispatch(actions[key1][key2].apply(null, arguments));
-			};
-			return p2;
-		}, {});
-		return p1;
-	}, {}),
-
-	constants: constants,
-
-	subscribe: _store2.default.subscribe
-};
+final.subscribe = _store2.default.subscribe;
 
 Object.defineProperty(final, "state", { get: function get() {
 		return _store2.default.getState();
 	} });
 
 exports.default = final;
+var actions = exports.actions = final.actions;
+var constants = exports.constants = final.constants;
+var subscribe = exports.subscribe = final.subscribe;
+var state = exports.state = final.state;
 
 },{"../src/store":20,"./site/actions/update-selected-page":17,"./site/constants/pages":18,"./todos/actions/add-todo":21,"./todos/actions/complete-todo":22,"./todos/actions/load-todos":23,"./todos/actions/remove-todo":24,"./todos/actions/update-selected-summary-status":25,"./todos/constants/statuses":27}],17:[function(_dereq_,module,exports){
 'use strict';
@@ -1104,7 +1111,7 @@ exports.LOAD_TODOS = undefined;
 
 exports.default = function (todos) {
 	return function (dispatch, getState) {
-		(0, _loadAllTodos2.default)().then(function (todos) {
+		return (0, _loadAllTodos2.default)().then(function (todos) {
 			dispatch((0, _updateTodos2.default)(todos));
 		});
 	};

@@ -906,7 +906,9 @@ final.constants = {
 
 final.subscribe = _store2.default.subscribe;
 
-Object.defineProperty(final, "state", { get: _store2.default.getState });
+Object.defineProperty(final, "state", { get: function get() {
+		return _store2.default.getState();
+	} });
 
 exports.default = final;
 var actions = exports.actions = final.actions;

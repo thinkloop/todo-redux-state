@@ -41,7 +41,7 @@ final.constants = {
 
 final.subscribe = store.subscribe;
 
-Object.defineProperty(final, "state", { get: store.getState });
+Object.defineProperty(final, "state", { get: () => store.getState() });
 
 export default final;
 

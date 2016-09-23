@@ -14,15 +14,15 @@ import todoReduxState from 'todo-redux-state';
 
 // load todos and show state
 todoReduxState.actions.todos.loadTodos();
-console.log(JSON.stringify(todoReduxState.state, null, 2));
+console.log(todoReduxState.state);
 
 // add todo and show new state
 todoReduxState.actions.todos.addTodo('demo test 1');
-console.log(JSON.stringify(todoReduxState.state, null, 2));
+console.log(todoReduxState.state);
 
 // remove todo and show new state
 todoReduxState.actions.todos.removeTodo('3');
-console.log(JSON.stringify(todoReduxState.state, null, 2));
+console.log(todoReduxState.state);
 ```
 
 ### Install

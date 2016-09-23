@@ -50,3 +50,15 @@ Following are some of the conventions used to drive architectural and design cho
 - use ids to denote relationships between objects, do not nest objects
 - generalize actions so they can be used for varying purposes
 - name things relative to the domain, not to ui implementations (ex: do not use "button", "form", etc.)
+
+### License
+
+Released under an MIT license.
+
+### Related
+1. [todo-react-components](https://github.com/thinkloop/todo-react-components): view-layer
+2. [todo-redux-state](https://github.com/thinkloop/todo-redux-state): data-layer
+3. [todo-app](https://github.com/thinkloop/todo-app): integration
+
+### Like it? Star It
+

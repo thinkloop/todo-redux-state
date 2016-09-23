@@ -11,13 +11,9 @@ import removeTodo from './todos/actions/remove-todo';
 import completeTodo from './todos/actions/complete-todo';
 import updateSelectedSummaryStatus from './todos/actions/update-selected-summary-status';
 
-let final = {
-	actions,
-	constants,
-	subscribe: store.subscribe
-};
+let final = {};
 
-final.actions = {
+const actionsSet = {
 	site: {
 		updateSelectedPage
 	},
@@ -30,9 +26,9 @@ final.actions = {
 	}
 };
 
-final.actions = Object.keys(final.actions).reduce((p1, key1) => {
-	p1[key1] = Object.keys(final.actions[key1]).reduce((p2, key2) => {
-		p2[key2] = function() { store.dispatch(final.actions[key1][key2].apply(null, arguments)) };
+final.actions = Object.keys(actionsSet).reduce((p1, key1) => {
+	p1[key1] = Object.keys(actionsSet[key1]).reduce((p2, key2) => {
+		p2[key2] = function() { store.dispatch(actionsSet[key1][key2].apply(null, arguments)) };
 		return p2;
 	}, {});
 	return p1;
@@ -45,7 +41,7 @@ final.constants = {
 
 final.subscribe = store.subscribe;
 
-Object.defineProperty(final, "state", { get: () => store.getState() });
+Object.defineProperty(final, "state", { get: store.getState });
 
 export default final;
 

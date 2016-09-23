@@ -874,13 +874,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var final = {
-	actions: actions,
-	constants: constants,
-	subscribe: _store2.default.subscribe
-};
+var final = {};
 
-final.actions = {
+var actionsSet = {
 	site: {
 		updateSelectedPage: _updateSelectedPage2.default
 	},
@@ -893,10 +889,10 @@ final.actions = {
 	}
 };
 
-final.actions = Object.keys(final.actions).reduce(function (p1, key1) {
-	p1[key1] = Object.keys(final.actions[key1]).reduce(function (p2, key2) {
+final.actions = Object.keys(actionsSet).reduce(function (p1, key1) {
+	p1[key1] = Object.keys(actionsSet[key1]).reduce(function (p2, key2) {
 		p2[key2] = function () {
-			_store2.default.dispatch(final.actions[key1][key2].apply(null, arguments));
+			_store2.default.dispatch(actionsSet[key1][key2].apply(null, arguments));
 		};
 		return p2;
 	}, {});
@@ -910,9 +906,7 @@ final.constants = {
 
 final.subscribe = _store2.default.subscribe;
 
-Object.defineProperty(final, "state", { get: function get() {
-		return _store2.default.getState();
-	} });
+Object.defineProperty(final, "state", { get: _store2.default.getState });
 
 exports.default = final;
 var actions = exports.actions = final.actions;

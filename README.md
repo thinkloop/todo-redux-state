@@ -6,8 +6,7 @@ Example of 3rd party integration:
 
 ```javascript
 /* 
-* example code in a separate project that 
-* imports this project and runs some actions
+* 3rd party app imports this project and runs some actions
 */
 
 import { state, actions, subscribe } from 'todo-redux-state';

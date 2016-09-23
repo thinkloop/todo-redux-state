@@ -45,9 +45,9 @@ Object.defineProperty(final, "state", { get: store.getState });
 
 export default final;
 
-/*
+
 export const actions = final.actions;
 export const constants = final.constants;
 export const subscribe = final.subscribe;
-export const state = get state() { final.state };
-*/
+
+Object.defineProperty(exports, "state", { get: store.getState });

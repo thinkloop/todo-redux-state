@@ -41,8 +41,8 @@ Since the app has no ui, the primary consumer of the services are actually tests
 > npm run -s test
 ```
 
-### Design Conventions Used
-Following are some of the conventions used to drive architecture and design choices:
+### Conventions Used
+Following are some of the conventions used to drive architectural and design choices:
 
 - structure state into flat, flexible, shallow shapes
 - store the minimum state possible, do not store anything that can be derived from other state

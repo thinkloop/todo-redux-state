@@ -6,6 +6,9 @@ export const LOAD_TODOS = 'LOAD_TODOS';
 export default function (todos) {
 	return (dispatch, getState) => {
 		return loadAllTodos().then(todos => {
+			if (!todos) {
+				return Promise.resolve(null);
+			}
 			dispatch(updateTodos(todos));
 		});
 	};

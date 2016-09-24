@@ -3,7 +3,7 @@ import updateTodos from '../../todos/actions/update-todos';
 
 export default function (description) {
 	return (dispatch, getState) => {
-		if (!description) {
+		if (!description || !description.length) {
 			return Promise.resolve(null);
 		}
 

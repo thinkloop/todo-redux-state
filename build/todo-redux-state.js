@@ -1037,7 +1037,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (description) {
 	return function (dispatch, getState) {
-		if (!description) {
+		if (!description || !description.length) {
 			return Promise.resolve(null);
 		}
 

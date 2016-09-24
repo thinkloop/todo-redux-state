@@ -28,7 +28,11 @@ const actionsSet = {
 
 final.actions = Object.keys(actionsSet).reduce((p1, key1) => {
 	p1[key1] = Object.keys(actionsSet[key1]).reduce((p2, key2) => {
-		p2[key2] = function() { store.dispatch(actionsSet[key1][key2].apply(null, arguments)) };
+		p2[key2] = function() {
+			const action = actionsSet[key1][key2].apply(null, arguments);
+			store.dispatch(action);
+			return action;
+		};
 		return p2;
 	}, {});
 	return p1;

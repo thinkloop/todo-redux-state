@@ -892,7 +892,9 @@ var actionsSet = {
 final.actions = Object.keys(actionsSet).reduce(function (p1, key1) {
 	p1[key1] = Object.keys(actionsSet[key1]).reduce(function (p2, key2) {
 		p2[key2] = function () {
-			_store2.default.dispatch(actionsSet[key1][key2].apply(null, arguments));
+			var action = actionsSet[key1][key2].apply(null, arguments);
+			_store2.default.dispatch(action);
+			return action;
 		};
 		return p2;
 	}, {});

@@ -47,7 +47,7 @@ Following are some of the conventions used to drive architectural and design cho
 - prefer generic objects over arrays
 - use ids to denote relationships between objects, do not nest objects
 - generalize actions so they can be used for varying purposes
-- name things relative to the domain, not to ui implementations (ex: do not use "button", "form", etc.)
+- name things relative to the domain, not to possible viual elements (ex: do not use "button", "form", etc.)
 
 ### License
 

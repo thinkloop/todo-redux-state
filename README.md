@@ -28,7 +28,7 @@ Using npm:
 npm install todo-redux-state --save
 ```
 
-Or include the latest build of [todo-redux-state.js](build/todo-redux-state.js) in your project.
+Or download the latest build of [todo-redux-state.js](build/todo-redux-state.js).
 
 ### Test Suite
 Since the app has no ui, the primary consumer of it are actually tests. As such, the included test suite is comprehensive and up to date. To run the tests, clone the project, install the dependencies, then run them:

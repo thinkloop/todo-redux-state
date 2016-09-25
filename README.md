@@ -2,13 +2,10 @@
 
 This is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains the data, state, backend services and actions that transform state. A single object is exported that includes a snapshot of the current `state`, as well as all possible `actions` that can be performed. While this project is used by the advanced todo app, it is not aware of it, nor dependent on it or any other app. This project provides a generalized, stand-alone, todo-oriented state container that can be implemented by any app that needs it.
 
-Example of 3rd party integration:
+Example of a 3rd party app importing this project and running some actions to change state:
 
 ```javascript
-/* 
-* 3rd party app imports this project and runs some actions
-*/
-
+//import this project
 import { state, actions, subscribe } from 'todo-redux-state';
 
 // listen to state changes and log them to console

@@ -2,6 +2,16 @@
 
 This is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains the data, state, backend services and actions that transform state. A single object is exported that includes a snapshot of the current `state`, as well as all possible `actions` that can be performed. While this project is used by the advanced todo app, it is not aware of it, nor dependent on it or any other app. This project provides a generalized, stand-alone, todo-oriented state container that can be implemented by any app that needs it.
 
+### Install
+Using npm:
+
+```
+npm install todo-redux-state --save
+```
+
+Or download the latest build of [todo-redux-state.js](build/todo-redux-state.js).
+
+### Use
 Example of a 3rd party app importing this project and running some actions to change state:
 
 ```javascript
@@ -20,15 +30,6 @@ actions.todos.addTodo('demo test 1');
 // remove todo
 actions.todos.removeTodo('3');
 ```
-
-### Install
-Using npm:
-
-```
-npm install todo-redux-state --save
-```
-
-Or download the latest build of [todo-redux-state.js](build/todo-redux-state.js).
 
 ### Test Suite
 Since the app has no ui, the primary consumer of it are actually tests. As such, the included test suite is comprehensive and up to date. To run the tests, clone the project, install the dependencies, then run them:

@@ -955,7 +955,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
-	var selectedPage = arguments.length <= 0 || arguments[0] === undefined ? _pages.HOME : arguments[0];
+	var selectedPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _pages.HOME;
 	var action = arguments[1];
 
 	switch (action.type) {
@@ -1204,7 +1204,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
-	var selectedSummaryStatus = arguments.length <= 0 || arguments[0] === undefined ? _statuses.TOTAL : arguments[0];
+	var selectedSummaryStatus = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _statuses.TOTAL;
 	var action = arguments[1];
 
 	switch (action.type) {
@@ -1230,7 +1230,7 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.default = function () {
-	var todos = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	var todos = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	var action = arguments[1];
 
 	var newTodos = void 0;

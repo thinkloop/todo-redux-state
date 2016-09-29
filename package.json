@@ -41,20 +41,20 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
+    "babel-jest": "^15.0.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-stage-0": "6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "13.1.0",
     "derequire": "^2.0.3",
     "exorcist": "^0.4.0",
     "jest": "^15.1.1",
     "npm-check-updates": "^2.8.0",
     "onchange": "^3.0.2",
-    "redux-mock-store": "^1.2.0",
+    "redux-mock-store": "^1.2.1",
     "rimraf": "^2.5.4",
     "uglifyjs": "^2.4.10",
-    "watchify": "^3.7.0",
-    "babel-jest": "^15.0.0",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-stage-0": "6.5.0",
-    "babelify": "^7.3.0",
-    "browserify": "13.1.0"
+    "watchify": "^3.7.0"
   },
   "jest": {
     "testPathDirs": [

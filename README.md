@@ -2,13 +2,20 @@
 
 This is 1 of 3 projects that make up the [advanced todo app](https://github.com/thinkloop/todo-app). It contains the data, state, backend services and actions that transform state. A single object is exported that includes a snapshot of the current `state`, as well as all possible `actions` that can be performed. While this project is used by the advanced todo app, it is not aware of it, nor dependent on it or any other app. This project provides a generalized, stand-alone, todo-oriented state container that can be implemented by any app that needs it.
 
-Example of 3rd party integration:
+### Install
+Using npm:
+
+```
+npm install todo-redux-state --save
+```
+
+Or download the latest build of [todo-redux-state.js](build/todo-redux-state.js).
+
+### Use
+Example of a 3rd party app importing this project and running some actions to change state:
 
 ```javascript
-/* 
-* 3rd party app imports this project and runs some actions
-*/
-
+//import this project
 import { state, actions, subscribe } from 'todo-redux-state';
 
 // listen to state changes and log them to console
@@ -24,15 +31,6 @@ actions.todos.addTodo('demo test 1');
 actions.todos.removeTodo('3');
 ```
 
-### Install
-Using npm:
-
-```
-npm install todo-redux-state --save
-```
-
-Or include the latest build of [todo-redux-state.js](build/todo-redux-state.js) in your project.
-
 ### Test Suite
 Since the app has no ui, the primary consumer of it are actually tests. As such, the included test suite is comprehensive and up to date. To run the tests, clone the project, install the dependencies, then run them:
 
@@ -45,12 +43,12 @@ Since the app has no ui, the primary consumer of it are actually tests. As such,
 ### Conventions Used
 Following are some of the conventions used to drive architectural and design choices:
 
-- state should be flat, shallow, normalized, and flexible
 - state should be minimal, any value that can be derived or calculated should not be stored in state
+- state should be flat, shallow, normalized, and flexible
 - prefer generic objects over arrays
 - use ids to denote relationships between objects, do not nest objects
 - generalize actions so they can be used for varying purposes
-- name things relative to the domain, not to ui implementations (ex: do not use "button", "form", etc.)
+- name things relative to the domain, not to possible visual elements (ex: do not use "button", "form", etc.)
 
 ### License
 

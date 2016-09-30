@@ -8,7 +8,7 @@ This is 1 of 3 projects that make up the [advanced todo app](https://github.com/
 Using npm:
 
 ```
-npm install todo-redux-state --save
+npm install 'thinkloop/todo-redux-state' --save
 ```
 
 Or download the latest build of [todo-redux-state.js](build/todo-redux-state.js).

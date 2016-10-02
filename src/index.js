@@ -43,20 +43,18 @@ const constants = {
 
 const subscribe = store.subscribe;
 
-const final = {
+const getState = store.getState;
+
+export default {
+	getState,
 	actions,
 	constants,
 	subscribe
 };
 
-Object.defineProperty(final, "state", { get: store.getState });
-
-export default final;
-
 export {
+	getState,
 	actions,
 	constants,
 	subscribe
-}
-
-Object.defineProperty(exports, "state", { get: store.getState });
+};

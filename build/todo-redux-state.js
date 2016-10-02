@@ -832,7 +832,7 @@ function symbolObservablePonyfill(root) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.subscribe = exports.constants = exports.actions = undefined;
+exports.subscribe = exports.constants = exports.actions = exports.getState = undefined;
 
 var _store = _dereq_('../src/store');
 
@@ -906,21 +906,18 @@ var constants = {
 
 var subscribe = _store2.default.subscribe;
 
-var final = {
+var getState = _store2.default.getState;
+
+exports.default = {
+	getState: getState,
 	actions: actions,
 	constants: constants,
 	subscribe: subscribe
 };
-
-Object.defineProperty(final, "state", { get: _store2.default.getState });
-
-exports.default = final;
+exports.getState = getState;
 exports.actions = actions;
 exports.constants = constants;
 exports.subscribe = subscribe;
-
-
-Object.defineProperty(exports, "state", { get: _store2.default.getState });
 
 },{"../src/store":20,"./site/actions/update-selected-page":17,"./site/constants/pages":18,"./todos/actions/add-todo":21,"./todos/actions/complete-todo":22,"./todos/actions/load-todos":23,"./todos/actions/remove-todo":24,"./todos/actions/update-selected-summary-status":25,"./todos/constants/statuses":27}],17:[function(_dereq_,module,exports){
 'use strict';

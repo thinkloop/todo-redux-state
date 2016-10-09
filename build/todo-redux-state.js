@@ -951,10 +951,8 @@ var UPDATE_SELECTED_PAGE = exports.UPDATE_SELECTED_PAGE = 'UPDATE_SELECTED_PAGE'
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.updateStateFromURL = updateStateFromURL;
-var UPDATE_STATE_FROM_URL = exports.UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
 
-function updateStateFromURL(url) {
+exports.default = function (url) {
 	return function (dispatch, getState) {
 		var splitURL = url.split('?');
 
@@ -967,7 +965,9 @@ function updateStateFromURL(url) {
 
 		dispatch({ type: UPDATE_STATE_FROM_URL, path: path, searchParams: searchParams });
 	};
-}
+};
+
+var UPDATE_STATE_FROM_URL = exports.UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
 
 function parseSearchParams(searchString) {
 	var pairSplit = void 0;

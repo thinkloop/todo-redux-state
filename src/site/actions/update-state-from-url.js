@@ -1,6 +1,6 @@
 export const UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
 
-export function updateStateFromURL(url) {
+export default function (url) {
 	return (dispatch, getState) => {
 		const splitURL = url.split('?');
 

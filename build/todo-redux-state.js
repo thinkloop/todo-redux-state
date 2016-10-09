@@ -846,6 +846,10 @@ var _statuses = _dereq_('./todos/constants/statuses');
 
 var TODOS_STATUSES = _interopRequireWildcard(_statuses);
 
+var _updateStateFromUrl = _dereq_('./site/actions/update-state-from-url');
+
+var _updateStateFromUrl2 = _interopRequireDefault(_updateStateFromUrl);
+
 var _updateSelectedPage = _dereq_('./site/actions/update-selected-page');
 
 var _updateSelectedPage2 = _interopRequireDefault(_updateSelectedPage);
@@ -876,6 +880,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var actionsSet = {
 	site: {
+		updateStateFromURL: _updateStateFromUrl2.default,
 		updateSelectedPage: _updateSelectedPage2.default
 	},
 	todos: {
@@ -919,48 +924,7 @@ exports.actions = actions;
 exports.constants = constants;
 exports.subscribe = subscribe;
 
-},{"../src/store":22,"./site/actions/update-selected-page":18,"./site/constants/pages":19,"./todos/actions/add-todo":23,"./todos/actions/complete-todo":24,"./todos/actions/load-todos":25,"./todos/actions/remove-todo":26,"./todos/actions/update-selected-summary-status":27,"./todos/constants/statuses":29}],17:[function(_dereq_,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.parseURL = parseURL;
-var PARSE_URL = exports.PARSE_URL = 'PARSE_URL';
-
-function parseURL(url) {
-	return function (dispatch, getState) {
-		var splitURL = url.split('?');
-
-		var path = splitURL[0];
-		var searchParams = {};
-
-		if (splitURL.length >= 2) {
-			searchParams = parseSearch(splitURL[1]);
-		}
-
-		dispatch({ type: PARSE_URL, path: path, searchParams: searchParams });
-	};
-}
-
-function parseSearch(searchString) {
-	var pairSplit = void 0;
-	return (searchString || '').replace(/^\?/, '').split('&').reduce(function (p, pair) {
-		pairSplit = pair.split('=');
-		if (pairSplit.length >= 1) {
-			if (pairSplit[0].length) {
-				if (pairSplit.length >= 2 && pairSplit[1]) {
-					p[decodeURIComponent(pairSplit[0])] = decodeURIComponent(pairSplit[1]);
-				} else {
-					p[decodeURIComponent(pairSplit[0])] = '';
-				}
-			}
-		}
-		return p;
-	}, {});
-}
-
-},{}],18:[function(_dereq_,module,exports){
+},{"../src/store":22,"./site/actions/update-selected-page":17,"./site/actions/update-state-from-url":18,"./site/constants/pages":19,"./todos/actions/add-todo":23,"./todos/actions/complete-todo":24,"./todos/actions/load-todos":25,"./todos/actions/remove-todo":26,"./todos/actions/update-selected-summary-status":27,"./todos/constants/statuses":29}],17:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -981,6 +945,41 @@ exports.default = function (newSelectedPage) {
 
 var UPDATE_SELECTED_PAGE = exports.UPDATE_SELECTED_PAGE = 'UPDATE_SELECTED_PAGE';
 
+},{}],18:[function(_dereq_,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.updateStateFromURL = updateStateFromURL;
+var UPDATE_STATE_FROM_URL = exports.UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
+
+function updateStateFromURL(url) {
+	return function (dispatch, getState) {
+		var splitURL = url.split('?');
+
+		var path = splitURL[0];
+		var searchParams = {};
+
+		if (splitURL.length >= 2) {
+			searchParams = parseSearchParams(splitURL[1]);
+		}
+
+		dispatch({ type: UPDATE_STATE_FROM_URL, path: path, searchParams: searchParams });
+	};
+}
+
+function parseSearchParams(searchString) {
+	var pairSplit = void 0;
+	return (searchString || '').replace(/^\?/, '').split('&').reduce(function (p, pair) {
+		pairSplit = pair.split('=');
+		if (pairSplit.length >= 1 && pairSplit[0].length >= 1) {
+			p[decodeURIComponent(pairSplit[0])] = decodeURIComponent(pairSplit[1]) || '';
+		}
+		return p;
+	}, {});
+}
+
 },{}],19:[function(_dereq_,module,exports){
 'use strict';
 
@@ -996,12 +995,16 @@ var ABOUT = exports.ABOUT = 'ABOUT';
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.PATHS = undefined;
+
+var _pages = _dereq_('../../site/constants/pages');
+
 var PATHS = exports.PATHS = {
-	'/': 'HOME',
-	'/about': 'ABOUT'
+	'/': _pages.HOME,
+	'/about': _pages.ABOUT
 };
 
-},{}],21:[function(_dereq_,module,exports){
+},{"../../site/constants/pages":19}],21:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1017,7 +1020,7 @@ exports.default = function () {
 		case _updateSelectedPage.UPDATE_SELECTED_PAGE:
 			return action.selectedPage;
 
-		case _parseUrl.PARSE_URL:
+		case _updateStateFromUrl.UPDATE_STATE_FROM_URL:
 			return _paths.PATHS[action.path] || _pages.HOME;
 
 		default:
@@ -1027,13 +1030,13 @@ exports.default = function () {
 
 var _updateSelectedPage = _dereq_('../../site/actions/update-selected-page');
 
-var _parseUrl = _dereq_('../../site/actions/parse-url');
+var _updateStateFromUrl = _dereq_('../../site/actions/update-state-from-url');
 
 var _pages = _dereq_('../../site/constants/pages');
 
 var _paths = _dereq_('../../site/constants/paths');
 
-},{"../../site/actions/parse-url":17,"../../site/actions/update-selected-page":18,"../../site/constants/pages":19,"../../site/constants/paths":20}],22:[function(_dereq_,module,exports){
+},{"../../site/actions/update-selected-page":17,"../../site/actions/update-state-from-url":18,"../../site/constants/pages":19,"../../site/constants/paths":20}],22:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

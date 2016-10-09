@@ -1,6 +1,6 @@
-export const PARSE_URL = 'PARSE_URL';
+export const UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
 
-export function parseURL(url) {
+export function updateStateFromURL(url) {
 	return (dispatch, getState) => {
 		const splitURL = url.split('?');
 
@@ -8,14 +8,14 @@ export function parseURL(url) {
 		let searchParams = {};
 
 		if (splitURL.length >= 2) {
-			searchParams = parseSearch(splitURL[1]);
+			searchParams = parseSearchParams(splitURL[1]);
 		}
 
-		dispatch({ type: PARSE_URL, path, searchParams });
+		dispatch({ type: UPDATE_STATE_FROM_URL, path, searchParams });
 	};
 }
 
-function parseSearch(searchString) {
+function parseSearchParams(searchString) {
 	let pairSplit;
 	return (searchString || '').replace(/^\?/, '').split('&').reduce((p, pair) => {
 		pairSplit = pair.split('=');

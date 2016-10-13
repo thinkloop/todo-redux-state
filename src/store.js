@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 // reducers
+import url from './site/reducers/url';
 import selectedPage from './site/reducers/selected-page';
 
 import todos from './todos/reducers/todos';
 import selectedSummaryStatus from './todos/reducers/selected-summary-status';
 
 const reducers = {
+	url,
 	selectedPage,
 	todos,
 	selectedSummaryStatus

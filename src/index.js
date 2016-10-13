@@ -3,7 +3,7 @@ import store from '../src/store';
 import * as PAGES from './site/constants/pages';
 import * as TODOS_STATUSES from './todos/constants/statuses';
 
-import updateStateFromURL from './site/actions/update-state-from-url';
+import updateURL from './site/actions/update-url';
 import updateSelectedPage from './site/actions/update-selected-page';
 
 import addTodo from './todos/actions/add-todo';
@@ -14,7 +14,7 @@ import updateSelectedSummaryStatus from './todos/actions/update-selected-summary
 
 const actionsSet = {
 	site: {
-		updateStateFromURL,
+		updateURL,
 		updateSelectedPage
 	},
 	todos: {

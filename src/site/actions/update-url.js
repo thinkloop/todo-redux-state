@@ -1,9 +1,13 @@
-export const UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
+export const UPDATE_URL = 'UPDATE_URL';
 
-export default function (url) {
+export default function (newURL) {
 	return (dispatch, getState) => {
-		const splitURL = url.split('?');
+		const { url } = getState();
+		if (newURL === url) {
+			return;
+		}
 
+		const splitURL = newURL.split('?');
 		const path = splitURL[0];
 		let searchParams = {};
 
@@ -11,7 +15,7 @@ export default function (url) {
 			searchParams = parseSearchParams(splitURL[1]);
 		}
 
-		dispatch({ type: UPDATE_STATE_FROM_URL, path, searchParams });
+		dispatch({ type: UPDATE_URL, parsedURL: { path, searchParams, url: newURL }});
 	};
 }
 

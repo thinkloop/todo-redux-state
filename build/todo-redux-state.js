@@ -846,9 +846,9 @@ var _statuses = _dereq_('./todos/constants/statuses');
 
 var TODOS_STATUSES = _interopRequireWildcard(_statuses);
 
-var _updateStateFromUrl = _dereq_('./site/actions/update-state-from-url');
+var _updateUrl = _dereq_('./site/actions/update-url');
 
-var _updateStateFromUrl2 = _interopRequireDefault(_updateStateFromUrl);
+var _updateUrl2 = _interopRequireDefault(_updateUrl);
 
 var _updateSelectedPage = _dereq_('./site/actions/update-selected-page');
 
@@ -880,7 +880,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var actionsSet = {
 	site: {
-		updateStateFromURL: _updateStateFromUrl2.default,
+		updateURL: _updateUrl2.default,
 		updateSelectedPage: _updateSelectedPage2.default
 	},
 	todos: {
@@ -924,7 +924,7 @@ exports.actions = actions;
 exports.constants = constants;
 exports.subscribe = subscribe;
 
-},{"../src/store":22,"./site/actions/update-selected-page":17,"./site/actions/update-state-from-url":18,"./site/constants/pages":19,"./todos/actions/add-todo":23,"./todos/actions/complete-todo":24,"./todos/actions/load-todos":25,"./todos/actions/remove-todo":26,"./todos/actions/update-selected-summary-status":27,"./todos/constants/statuses":29}],17:[function(_dereq_,module,exports){
+},{"../src/store":23,"./site/actions/update-selected-page":17,"./site/actions/update-url":18,"./site/constants/pages":19,"./todos/actions/add-todo":24,"./todos/actions/complete-todo":25,"./todos/actions/load-todos":26,"./todos/actions/remove-todo":27,"./todos/actions/update-selected-summary-status":28,"./todos/constants/statuses":30}],17:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -952,10 +952,17 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (url) {
+exports.default = function (newURL) {
 	return function (dispatch, getState) {
-		var splitURL = url.split('?');
+		var _getState = getState();
 
+		var url = _getState.url;
+
+		if (newURL === url) {
+			return;
+		}
+
+		var splitURL = newURL.split('?');
 		var path = splitURL[0];
 		var searchParams = {};
 
@@ -963,11 +970,11 @@ exports.default = function (url) {
 			searchParams = parseSearchParams(splitURL[1]);
 		}
 
-		dispatch({ type: UPDATE_STATE_FROM_URL, path: path, searchParams: searchParams });
+		dispatch({ type: UPDATE_URL, parsedURL: { path: path, searchParams: searchParams, url: newURL } });
 	};
 };
 
-var UPDATE_STATE_FROM_URL = exports.UPDATE_STATE_FROM_URL = 'UPDATE_STATE_FROM_URL';
+var UPDATE_URL = exports.UPDATE_URL = 'UPDATE_URL';
 
 function parseSearchParams(searchString) {
 	var pairSplit = void 0;
@@ -995,7 +1002,7 @@ var ABOUT = exports.ABOUT = 'ABOUT';
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.PATHS = undefined;
+exports.DEFAULT_PATH = exports.PATHS = undefined;
 
 var _pages = _dereq_('../../site/constants/pages');
 
@@ -1003,6 +1010,8 @@ var PATHS = exports.PATHS = {
 	'/': _pages.HOME,
 	'/about': _pages.ABOUT
 };
+
+var DEFAULT_PATH = exports.DEFAULT_PATH = '/';
 
 },{"../../site/constants/pages":19}],21:[function(_dereq_,module,exports){
 'use strict';
@@ -1020,8 +1029,8 @@ exports.default = function () {
 		case _updateSelectedPage.UPDATE_SELECTED_PAGE:
 			return action.selectedPage;
 
-		case _updateStateFromUrl.UPDATE_STATE_FROM_URL:
-			return _paths.PATHS[action.path] || _pages.HOME;
+		case _updateUrl.UPDATE_URL:
+			return _paths.PATHS[action.parsedURL.path] || _pages.HOME;
 
 		default:
 			return selectedPage;
@@ -1030,13 +1039,38 @@ exports.default = function () {
 
 var _updateSelectedPage = _dereq_('../../site/actions/update-selected-page');
 
-var _updateStateFromUrl = _dereq_('../../site/actions/update-state-from-url');
+var _updateUrl = _dereq_('../../site/actions/update-url');
 
 var _pages = _dereq_('../../site/constants/pages');
 
 var _paths = _dereq_('../../site/constants/paths');
 
-},{"../../site/actions/update-selected-page":17,"../../site/actions/update-state-from-url":18,"../../site/constants/pages":19,"../../site/constants/paths":20}],22:[function(_dereq_,module,exports){
+},{"../../site/actions/update-selected-page":17,"../../site/actions/update-url":18,"../../site/constants/pages":19,"../../site/constants/paths":20}],22:[function(_dereq_,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function () {
+	var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _paths.DEFAULT_PATH;
+	var action = arguments[1];
+
+	switch (action.type) {
+
+		case _updateUrl.UPDATE_URL:
+			return action.parsedURL.url;
+
+		default:
+			return url;
+	}
+};
+
+var _updateUrl = _dereq_('../../site/actions/update-url');
+
+var _paths = _dereq_('../../site/constants/paths');
+
+},{"../../site/actions/update-url":18,"../../site/constants/paths":20}],23:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1048,6 +1082,10 @@ var _redux = _dereq_('redux');
 var _reduxThunk = _dereq_('redux-thunk');
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _url = _dereq_('./site/reducers/url');
+
+var _url2 = _interopRequireDefault(_url);
 
 var _selectedPage = _dereq_('./site/reducers/selected-page');
 
@@ -1063,16 +1101,15 @@ var _selectedSummaryStatus2 = _interopRequireDefault(_selectedSummaryStatus);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// reducers
 var reducers = {
+	url: _url2.default,
 	selectedPage: _selectedPage2.default,
 	todos: _todos2.default,
 	selectedSummaryStatus: _selectedSummaryStatus2.default
 };
 
 // middleware that logs all actions to console
-
-
-// reducers
 var consoleLog = function consoleLog(store) {
 	return function (next) {
 		return function (action) {
@@ -1095,7 +1132,7 @@ if (process.env.NODE_ENV !== 'production') {
 // create store
 exports.default = (0, _redux.createStore)((0, _redux.combineReducers)(reducers), middleWare);
 
-},{"./site/reducers/selected-page":21,"./todos/reducers/selected-summary-status":30,"./todos/reducers/todos":31,"redux":7,"redux-thunk":1}],23:[function(_dereq_,module,exports){
+},{"./site/reducers/selected-page":21,"./site/reducers/url":22,"./todos/reducers/selected-summary-status":31,"./todos/reducers/todos":32,"redux":7,"redux-thunk":1}],24:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1128,7 +1165,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":28,"../../todos/services/fake-backend/new-todo":34}],24:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":29,"../../todos/services/fake-backend/new-todo":35}],25:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1167,7 +1204,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":28,"../../todos/services/fake-backend/save-todo":35}],25:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":29,"../../todos/services/fake-backend/save-todo":36}],26:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1198,7 +1235,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var LOAD_TODOS = exports.LOAD_TODOS = 'LOAD_TODOS';
 
-},{"../../todos/actions/update-todos":28,"../../todos/services/fake-backend/load-all-todos":33}],26:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":29,"../../todos/services/fake-backend/load-all-todos":34}],27:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1225,7 +1262,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-},{"../../todos/actions/update-todos":28,"../../todos/services/fake-backend/delete-todo":32}],27:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":29,"../../todos/services/fake-backend/delete-todo":33}],28:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1238,7 +1275,7 @@ exports.default = function (selectedSummaryStatus) {
 
 var UPDATE_SELECTED_SUMMARY_STATUS = exports.UPDATE_SELECTED_SUMMARY_STATUS = 'UPDATE_SELECTED_SUMMARY_STATUS';
 
-},{}],28:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1251,7 +1288,7 @@ exports.default = function (todos) {
 
 var UPDATE_TODOS = exports.UPDATE_TODOS = 'UPDATE_TODOS';
 
-},{}],29:[function(_dereq_,module,exports){
+},{}],30:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1261,7 +1298,7 @@ var PENDING = exports.PENDING = 'PENDING';
 var COMPLETE = exports.COMPLETE = 'COMPLETE';
 var TOTAL = exports.TOTAL = 'TOTAL';
 
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1285,7 +1322,7 @@ var _updateSelectedSummaryStatus = _dereq_('../../todos/actions/update-selected-
 
 var _statuses = _dereq_('../../todos/constants/statuses');
 
-},{"../../todos/actions/update-selected-summary-status":27,"../../todos/constants/statuses":29}],31:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-selected-summary-status":28,"../../todos/constants/statuses":30}],32:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1321,7 +1358,7 @@ exports.default = function () {
 
 var _updateTodos = _dereq_('../../todos/actions/update-todos');
 
-},{"../../todos/actions/update-todos":28}],32:[function(_dereq_,module,exports){
+},{"../../todos/actions/update-todos":29}],33:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1336,7 +1373,7 @@ exports.default = function (id) {
 	});
 };
 
-},{}],33:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1364,7 +1401,7 @@ exports.default = function () {
 	});
 };
 
-},{}],34:[function(_dereq_,module,exports){
+},{}],35:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1387,7 +1424,7 @@ exports.default = function (description) {
 	});
 };
 
-},{}],35:[function(_dereq_,module,exports){
+},{}],36:[function(_dereq_,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

@@ -963,14 +963,29 @@ exports.default = function (newURL) {
 		}
 
 		var splitURL = newURL.split('?');
-		var path = splitURL[0];
+		var path = splitURL[0].replace(/[/]+/g, '/');
 		var searchParams = {};
+
+		// make sure there isn't a trailing slash, except for home being a single slash: '/'
+		if (path.length <= 1) {
+			path = '/';
+		} else {
+			path = path.replace(/\/$/, '');
+		}
 
 		if (splitURL.length >= 2) {
 			searchParams = parseSearchParams(splitURL[1]);
 		}
 
-		dispatch({ type: UPDATE_URL, parsedURL: { path: path, searchParams: searchParams, url: newURL } });
+		var finalURL = path + joinSearchParams(searchParams);
+
+		dispatch({
+			type: UPDATE_URL,
+			parsedURL: {
+				path: path,
+				searchParams: searchParams,
+				url: finalURL
+			} });
 	};
 };
 
@@ -985,6 +1000,18 @@ function parseSearchParams(searchString) {
 		}
 		return p;
 	}, {});
+}
+
+function joinSearchParams(searchParams) {
+	var searchString = Object.keys(searchParams).reduce(function (p, paramKey) {
+		return p += '&' + paramKey + '=' + searchParams[paramKey];
+	}, '?');
+
+	if (searchString.length <= 1) {
+		return '';
+	}
+
+	return searchString.replace('?&', '?');
 }
 
 },{}],19:[function(_dereq_,module,exports){

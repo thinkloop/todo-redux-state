@@ -8,14 +8,30 @@ export default function (newURL) {
 		}
 
 		const splitURL = newURL.split('?');
-		const path = splitURL[0];
+		let path = splitURL[0].replace(/[/]+/g, '/');
 		let searchParams = {};
+
+		// make sure there isn't a trailing slash, except for home being a single slash: '/'
+		if (path.length <= 1) {
+			path = '/';
+		}
+		else {
+			path = path.replace(/\/$/, '');
+		}
 
 		if (splitURL.length >= 2) {
 			searchParams = parseSearchParams(splitURL[1]);
 		}
 
-		dispatch({ type: UPDATE_URL, parsedURL: { path, searchParams, url: newURL }});
+		const finalURL = path + joinSearchParams(searchParams);
+
+		dispatch({
+			type: UPDATE_URL,
+			parsedURL: {
+				path,
+				searchParams,
+				url: finalURL
+			}});
 	};
 }
 
@@ -28,4 +44,14 @@ function parseSearchParams(searchString) {
 		}
 		return p;
 	}, {});
+}
+
+function joinSearchParams(searchParams) {
+	let searchString = Object.keys(searchParams).reduce((p, paramKey) => p += `&${paramKey}=${searchParams[paramKey]}`, '?');
+
+	if (searchString.length <= 1) {
+		return '';
+	}
+
+	return searchString.replace('?&', '?');
 }

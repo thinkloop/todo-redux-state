@@ -10,7 +10,8 @@ todoReduxState.subscribe(function() {
 	console.log('--->', JSON.stringify(todoReduxState.getState(), null, 2));
 });
 
-todoReduxState.actions.site.updateSelectedPage(todoReduxState.constants.PAGES.ABOUT);
+todoReduxState.actions.site.updateURL('/////////?abc=123');
+todoReduxState.actions.site.updateURL('/about/////?def=456');
 
 todoReduxState.actions.todos.updateSelectedSummaryStatus(todoReduxState.constants.TODOS_STATUSES.PENDING);
 
